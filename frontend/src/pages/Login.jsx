@@ -14,6 +14,7 @@ function Login() {
 
     const userData = {
       email: email,
+      password: password,
     };
 
     login(userData);
