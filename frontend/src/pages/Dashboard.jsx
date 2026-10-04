@@ -1,90 +1,312 @@
-import Navbar from "../components/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import DashboardLayout from "../components/DashboardLayout";
 import { useAuth } from "../context/AuthContext";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/");
+  /*
+    DONNÉES TEMPORAIRES FRONTEND
+
+    Elles seront remplacées par les données du backend :
+    - matières associées à l'enseignant
+    - promotions associées à l'enseignant
+    - contenus de l'enseignant
+    - archives accessibles
+  */
+
+  const subjects = [
+    "Cloud Computing",
+    "Réseaux informatiques",
+  ];
+
+  const promotions = [
+    "Cycle ingénieur",
+  ];
+
+  const contentTypes = [
+    {
+      icon: "📘",
+      title: "Cours",
+      description:
+        "Créer un cours ou un résumé à partir d'un thème ou d'un plan.",
+      path: "/generator",
+    },
+    {
+      icon: "✎",
+      title: "Série d'exercices",
+      description:
+        "Générer une série d'exercices à partir d'un thème.",
+      path: "/generator",
+    },
+    {
+      icon: "☑",
+      title: "Quiz",
+      description:
+        "Créer un quiz à choix multiples avec difficulté et nombre de questions configurables.",
+      path: "/generator",
+    },
+    {
+      icon: "📋",
+      title: "Examen",
+      description:
+        "Préparer un examen avec durée, barème et consignes.",
+      path: "/generator",
+    },
+  ];
+
+  const handleCreateContent = (path) => {
+    navigate(path);
   };
 
   return (
-    <div className="dashboard-page">
-      <Navbar />
+    <DashboardLayout activePage="dashboard">
 
-      <main className="dashboard-container">
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
 
-        <div className="dashboard-header">
-          <h1>Bienvenue sur ExoCraft</h1>
+      <section className="dashboard-welcome">
 
-          {user && (
-            <p>
-              Bonjour {user.name || user.email} 👋
-            </p>
-          )}
+        <div>
+
+          <span className="dashboard-eyebrow">
+            ESPACE ENSEIGNANT
+          </span>
+
+          <h1>
+            Bienvenue sur ExoCraft
+          </h1>
 
           <p>
-            Créez, gérez et réalisez vos quiz facilement.
+            Créez, générez et gérez vos contenus pédagogiques
+            depuis votre espace.
           </p>
 
-          <button onClick={handleLogout} className="dashboard-button">
-            Déconnexion
+        </div>
+
+        <button
+          type="button"
+          className="dashboard-primary-button"
+          onClick={() => navigate("/generator")}
+        >
+          <span>✦</span>
+          Générer un contenu
+        </button>
+
+      </section>
+
+      {/* =====================================================
+          PROFIL PÉDAGOGIQUE
+      ===================================================== */}
+
+      <section className="dashboard-associations">
+
+        <div className="dashboard-section-header">
+
+          <div>
+            <span className="dashboard-section-eyebrow">
+              VOTRE ESPACE
+            </span>
+
+            <h2>
+              Vos associations pédagogiques
+            </h2>
+          </div>
+
+          <button
+            type="button"
+            className="dashboard-link-button"
+            onClick={() => navigate("/settings")}
+          >
+            Gérer mes associations →
           </button>
-        </div>
-
-        <div className="dashboard-grid">
-
-          <div className="dashboard-card">
-            <h2>Créer un quiz</h2>
-
-            <p>
-              Générez un nouveau quiz à partir de votre cours.
-            </p>
-
-            <Link
-              to="/create-quiz"
-              className="dashboard-button"
-            >
-              Créer un quiz
-            </Link>
-          </div>
-
-          <div className="dashboard-card">
-            <h2>Mes quiz</h2>
-
-            <p>
-              Consultez et gérez vos quiz existants.
-            </p>
-
-            <Link
-              to="/my-quizzes"
-              className="dashboard-button"
-            >
-              Voir mes quiz
-            </Link>
-          </div>
-
-          <div className="dashboard-card">
-            <h2>Historique</h2>
-
-            <p>
-              Consultez vos résultats et vos anciennes tentatives.
-            </p>
-
-            <Link
-              to="/history"
-              className="dashboard-button"
-            >
-              Voir l'historique
-            </Link>
-          </div>
 
         </div>
-      </main>
-    </div>
+
+        <div className="dashboard-association-grid">
+
+          {/* MATIÈRES */}
+
+          <div className="dashboard-association-card">
+
+            <div className="dashboard-association-icon">
+              📚
+            </div>
+
+            <div className="dashboard-association-content">
+
+              <span className="dashboard-card-label">
+                MATIÈRES
+              </span>
+
+              <h3>
+                Vos matières
+              </h3>
+
+              <div className="dashboard-tags">
+
+                {subjects.map((subject) => (
+                  <span
+                    className="dashboard-tag"
+                    key={subject}
+                  >
+                    {subject}
+                  </span>
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* PROMOTIONS */}
+
+          <div className="dashboard-association-card">
+
+            <div className="dashboard-association-icon">
+              🎓
+            </div>
+
+            <div className="dashboard-association-content">
+
+              <span className="dashboard-card-label">
+                PROMOTIONS
+              </span>
+
+              <h3>
+                Vos promotions
+              </h3>
+
+              <div className="dashboard-tags">
+
+                {promotions.map((promotion) => (
+                  <span
+                    className="dashboard-tag"
+                    key={promotion}
+                  >
+                    {promotion}
+                  </span>
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* =====================================================
+          CRÉATION DE CONTENU
+      ===================================================== */}
+
+      <section className="dashboard-create-section">
+
+        <div className="dashboard-section-header">
+
+          <div>
+
+            <span className="dashboard-section-eyebrow">
+              CRÉATION
+            </span>
+
+            <h2>
+              Que souhaitez-vous créer ?
+            </h2>
+
+            <p>
+              Choisissez le type de contenu pédagogique
+              que vous souhaitez préparer.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div className="dashboard-content-grid">
+
+          {contentTypes.map((content) => (
+            <button
+              type="button"
+              className="dashboard-content-card"
+              key={content.title}
+              onClick={() =>
+                handleCreateContent(content.path)
+              }
+            >
+
+              <div className="dashboard-content-card-top">
+
+                <div className="dashboard-content-icon">
+                  {content.icon}
+                </div>
+
+                <span className="dashboard-content-arrow">
+                  →
+                </span>
+
+              </div>
+
+              <h3>
+                {content.title}
+              </h3>
+
+              <p>
+                {content.description}
+              </p>
+
+            </button>
+          ))}
+
+        </div>
+
+      </section>
+
+      {/* =====================================================
+          ARCHIVES
+      ===================================================== */}
+
+      <section className="dashboard-archives-card">
+
+        <div className="dashboard-archives-icon">
+          ▤
+        </div>
+
+        <div className="dashboard-archives-content">
+
+          <span className="dashboard-section-eyebrow">
+            ARCHIVES PÉDAGOGIQUES
+          </span>
+
+          <h2>
+            Réutilisez vos archives
+          </h2>
+
+          <p>
+            Consultez les archives correspondant à vos
+            matières et promotions et utilisez-les comme
+            base pour générer de nouveaux contenus.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          className="dashboard-outline-button"
+          onClick={() => navigate("/documents")}
+        >
+          Consulter les archives
+          <span>→</span>
+        </button>
+
+      </section>
+
+    </DashboardLayout>
   );
 }
 
