@@ -9,25 +9,25 @@ function Home() {
       icon: "📘",
       title: "Cours",
       description:
-        "Créez des contenus pédagogiques structurés à partir d’un thème ou d’un plan.",
+        "Rédigez et organisez vos cours dans votre tableau de bord.",
     },
     {
       icon: "📝",
       title: "Résumés",
       description:
-        "Générez des résumés pédagogiques clairs et adaptés à vos besoins.",
+        "Rédigez des résumés pédagogiques clairs et adaptés à vos besoins.",
     },
     {
       icon: "✎",
       title: "Séries d’exercices",
       description:
-        "Générez des séries d’exercices à partir d’un thème.",
+        "Préparez vos séries d’exercices et leurs consignes.",
     },
     {
       icon: "☑",
       title: "Quiz",
       description:
-        "Créez des quiz à choix multiples avec niveau et nombre de questions configurables.",
+        "Rédigez vos questions et vos propositions de réponse.",
     },
     {
       icon: "📋",
@@ -83,7 +83,7 @@ function Home() {
           <div className="home-hero-content">
 
             <span className="home-eyebrow">
-              PLATEFORME PÉDAGOGIQUE PAR IA
+              VOTRE ESPACE PÉDAGOGIQUE
             </span>
 
             <h1>
@@ -94,9 +94,7 @@ function Home() {
             </h1>
 
             <p>
-              Une plateforme pour créer, générer, modifier,
-              valider, exporter et publier vos contenus
-              pédagogiques à partir d’un simple thème.
+              Un espace pour rédiger, organiser et retrouver vos cours, résumés, exercices, quiz et examens.
             </p>
 
             <div className="home-hero-actions">
@@ -136,8 +134,8 @@ function Home() {
                 </div>
 
                 <div>
-                  <strong>ExoCraft IA</strong>
-                  <span>Assistant pédagogique</span>
+                  <strong>Mes contenus</strong>
+                  <span>Tableau de bord</span>
                 </div>
               </div>
 
@@ -154,7 +152,7 @@ function Home() {
               <div className="home-ai-line">
                 <span>Statut</span>
                 <strong className="home-ai-status">
-                  Génération...
+                  Brouillon
                 </strong>
               </div>
 
@@ -168,7 +166,7 @@ function Home() {
               <span>✓</span>
               <div>
                 <strong>Contenu structuré</strong>
-                <small>Généré par IA</small>
+                <small>Rédigé par vous</small>
               </div>
             </div>
 
@@ -243,7 +241,7 @@ function Home() {
             </span>
 
             <h2>
-              De votre thème à votre
+              De votre idée à votre
               <br />
               contenu pédagogique
             </h2>
@@ -272,11 +270,10 @@ function Home() {
                 02
               </div>
 
-              <h3>Générez avec l’IA</h3>
+              <h3>Rédigez votre contenu</h3>
 
               <p>
-                ExoCraft génère automatiquement un contenu
-                pédagogique structuré.
+                Rédigez ou collez votre texte directement depuis le tableau de bord.
               </p>
             </div>
 
@@ -302,11 +299,10 @@ function Home() {
                 04
               </div>
 
-              <h3>Exportez ou publiez</h3>
+              <h3>Organisez et retrouvez</h3>
 
               <p>
-                Exportez votre contenu ou rendez-le
-                disponible aux autres enseignants.
+                Retrouvez vos contenus dans le tableau de bord et restaurez ceux que vous avez archivés.
               </p>
             </div>
 
@@ -333,15 +329,11 @@ function Home() {
               </span>
 
               <h2>
-                Réutilisez vos contenus
-                existants
+                Retrouvez vos contenus supprimés
               </h2>
 
               <p>
-                Les archives pédagogiques peuvent être
-                utilisées comme base pour générer de
-                nouveaux contenus, selon les matières
-                et promotions auxquelles vous êtes associé.
+                Un contenu supprimé est conservé dans les archives. Vous pouvez le consulter et le restaurer dans votre tableau de bord à tout moment.
               </p>
 
             </div>
@@ -401,8 +393,7 @@ function Home() {
           />
 
           <span>
-            Plateforme de génération et de gestion
-            de contenus pédagogiques par IA.
+            Espace de création et de gestion de contenus pédagogiques.
           </span>
         </div>
 

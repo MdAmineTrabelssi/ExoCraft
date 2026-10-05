@@ -1,210 +1,35 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-
-import "./App.css";
-import "./layout.css";
-
 import Home from "./pages/home";
 import Login from "./pages/Login";
 import Register from "./pages/register";
-
 import Dashboard from "./pages/Dashboard";
-import CreateQuiz from "./pages/createQuiz";
-import MyQuizzes from "./pages/MyQuizzes";
-import Documents from "./pages/Documents";
-import Generator from "./pages/Generator";
-import History from "./pages/History";
-import Settings from "./pages/Settings";
-import MyContent from "./pages/MyContent";
 import Archives from "./pages/Archives";
+import Settings from "./pages/Settings";
+import "./App.css";
+import "./layout.css";
+import "./workspace.css";
 
-import GeneratedQuiz from "./pages/GeneratedQuiz";
-import GeneratedExam from "./pages/GeneratedExam";
-import GeneratedCourse from "./pages/GeneratedCourse";
-import GeneratedExercises from "./pages/GeneratedExercises";
+// Old bookmarks return to the dashboard. Demo generators are not mounted or bundled.
+const legacyPaths = [
+  "/my-content", "/history", "/generator", "/documents", "/create-quiz", "/my-quizzes",
+  "/generated-quiz", "/generated-course", "/generated-exam", "/generated-exercises",
+  "/quiz-result", "/course-result",
+];
 
-import QuizResult from "./pages/QuizResult";
-import CourseResult from "./pages/CourseResult";
-
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
-
       <Routes>
-
-        {/* =========================
-            PUBLIC PAGES
-        ========================= */}
-
-        <Route
-          path="/"
-          element={<Home />}
-        />
-
-        <Route
-          path="/login"
-          element={<Login />}
-        />
-
-        <Route
-          path="/register"
-          element={<Register />}
-        />
-
-
-        {/* =========================
-            PROTECTED PAGES
-        ========================= */}
-
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/generator"
-          element={
-            <ProtectedRoute>
-              <Generator />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/documents"
-          element={
-            <ProtectedRoute>
-              <Documents />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/create-quiz"
-          element={
-            <ProtectedRoute>
-              <CreateQuiz />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/my-quizzes"
-          element={
-            <ProtectedRoute>
-              <MyQuizzes />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/my-content"
-          element={
-            <ProtectedRoute>
-              <MyContent />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/archives"
-          element={
-            <ProtectedRoute>
-              <Archives />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/history"
-          element={
-            <ProtectedRoute>
-              <History />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
-
-
-        {/* =========================
-            GENERATED CONTENT
-        ========================= */}
-
-        <Route
-          path="/generated-quiz"
-          element={
-            <ProtectedRoute>
-              <GeneratedQuiz />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/generated-exam"
-          element={
-            <ProtectedRoute>
-              <GeneratedExam />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/generated-course"
-          element={
-            <ProtectedRoute>
-              <GeneratedCourse />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/generated-exercises"
-          element={
-            <ProtectedRoute>
-              <GeneratedExercises />
-            </ProtectedRoute>
-          }
-        />
-
-
-        {/* =========================
-            RESULTS
-        ========================= */}
-
-        <Route
-          path="/quiz-result"
-          element={
-            <ProtectedRoute>
-              <QuizResult />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/course-result"
-          element={
-            <ProtectedRoute>
-              <CourseResult />
-            </ProtectedRoute>
-          }
-        />
-
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/archives" element={<ProtectedRoute><Archives /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        {legacyPaths.map(path => <Route key={path} path={path} element={<ProtectedRoute><Navigate to="/dashboard" replace /></ProtectedRoute>} />)}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
-
     </BrowserRouter>
   );
 }
-
-export default App;

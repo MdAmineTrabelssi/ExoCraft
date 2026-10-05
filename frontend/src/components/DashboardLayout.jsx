@@ -5,11 +5,7 @@ import logo from "../assets/exocraft-logo.png";
 
 const menuItems = [
   { path: "/dashboard", page: "dashboard", icon: "▣", label: "Tableau de bord" },
-  { path: "/generator", page: "generator", icon: "✦", label: "Générateur IA" },
-  { path: "/my-content", page: "contents", icon: "▤", label: "Mes contenus" },
   { path: "/archives", page: "archives", icon: "▧", label: "Archives" },
-  { path: "/history", page: "history", icon: "◷", label: "Historique" },
-  { path: "/settings", page: "settings", icon: "⚙", label: "Paramètres" },
 ];
 
 function DashboardLayout({ children, activePage }) {
