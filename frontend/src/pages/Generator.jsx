@@ -30,7 +30,8 @@ function Generator() {
       ? selectedArchive.type === "exam"
         ? "exam"
         : "course"
-      : "course"
+      : (["course", "summary", "exercises", "quiz", "exam"].includes(location.state?.contentType)
+          ? location.state.contentType : "course")
   );
 
 
@@ -607,6 +608,7 @@ function Generator() {
             <button
               type="button"
               key={type.id}
+              aria-pressed={contentType === type.id}
               className={
                 contentType === type.id
                   ? "generator-type-card active"

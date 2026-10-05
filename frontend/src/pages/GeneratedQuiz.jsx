@@ -963,24 +963,11 @@ function GeneratedQuiz() {
      ===================================================== */
 
   return (
-    <DashboardLayout activePage="my-content">
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#f8f9fd",
-          padding: "32px",
-        }}
-      >
+    <DashboardLayout activePage="contents">
+      <div className="quiz-editor">
         {/* HEADER */}
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            marginBottom: "30px",
-          }}
-        >
+        <div className="quiz-editor-header">
           <div>
             <button
               type="button"
@@ -1019,12 +1006,7 @@ function GeneratedQuiz() {
             </p>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-            }}
-          >
+          <div className="quiz-editor-controls">
             <button
               type="button"
               onClick={() =>
@@ -1068,15 +1050,7 @@ function GeneratedQuiz() {
 
         {/* INFORMATIONS */}
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(4, 1fr)",
-            gap: "16px",
-            marginBottom: "28px",
-          }}
-        >
+        <div className="quiz-editor-info">
           <InfoCard
             title="Questions"
             value={questions.length}
@@ -1145,15 +1119,7 @@ function GeneratedQuiz() {
 
         {/* ACTIONS */}
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: "30px",
-            paddingBottom: "30px",
-          }}
-        >
+        <div className="quiz-editor-actions">
           <button
             type="button"
             onClick={() =>
@@ -1260,32 +1226,16 @@ function QuestionCard({
   deleteQuestion,
 }) {
   return (
-    <div
-      style={{
-        background: "#ffffff",
-        border:
-          "1px solid #eaecf0",
-        borderRadius: "16px",
-        padding: "24px",
-        boxShadow:
-          "0 2px 8px rgba(16, 24, 40, 0.04)",
-      }}
-    >
+    <div className="quiz-editor-question">
       {/* QUESTION */}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          marginBottom: "20px",
-        }}
-      >
+      <div className="quiz-editor-question-header">
         <div
           style={{
             display: "flex",
             gap: "12px",
             flex: 1,
+            minWidth: 0,
           }}
         >
           <div
@@ -1306,6 +1256,7 @@ function QuestionCard({
 
           {isEditing ? (
             <textarea
+              aria-label={`Question ${questionIndex + 1}`}
               value={question.question}
               onChange={(event) =>
                 updateQuestion(
@@ -1362,15 +1313,7 @@ function QuestionCard({
 
       {/* REPONSES */}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "1fr 1fr",
-          gap: "12px",
-          marginLeft: "48px",
-        }}
-      >
+      <div className="quiz-editor-options">
         {question.options.map(
           (option, optionIndex) => {
             const isCorrect =
@@ -1414,6 +1357,7 @@ function QuestionCard({
               >
                 <input
                   type="radio"
+                  aria-label={`Réponse ${optionIndex + 1} : ${option}`}
                   name={`question-${questionIndex}`}
                   checked={
                     isEditing
@@ -1445,6 +1389,7 @@ function QuestionCard({
                 {isEditing ? (
                   <input
                     type="text"
+                    aria-label={`Proposition ${optionIndex + 1} de la question ${questionIndex + 1}`}
                     value={option}
                     onChange={(event) =>
                       updateOption(
@@ -1459,7 +1404,7 @@ function QuestionCard({
                     style={{
                       flex: 1,
                       border: "none",
-                      outline: "none",
+                      minWidth: 0,
                       background:
                         "transparent",
                       fontSize: "14px",
@@ -1488,8 +1433,8 @@ function QuestionCard({
 
       {showCorrection && (
         <div
+          className="quiz-editor-correction"
           style={{
-            marginLeft: "48px",
             marginTop: "18px",
             padding: "14px 16px",
             borderRadius: "10px",

@@ -2,13 +2,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import "./App.css";
+import "./layout.css";
 
 import Home from "./pages/home";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Register from "./pages/register";
 
 import Dashboard from "./pages/Dashboard";
-import CreateQuiz from "./pages/CreateQuiz";
+import CreateQuiz from "./pages/createQuiz";
 import MyQuizzes from "./pages/MyQuizzes";
 import Documents from "./pages/Documents";
 import Generator from "./pages/Generator";

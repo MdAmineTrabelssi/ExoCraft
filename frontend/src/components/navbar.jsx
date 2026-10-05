@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav>
+    <nav className="legacy-navbar">
       <div>
         <Link to="/">ExoCraft</Link>
       </div>

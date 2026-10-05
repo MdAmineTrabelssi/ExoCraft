@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "../components/DashboardLayout";
-import { useAuth } from "../context/AuthContext";
+
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+
 
   /*
     DONNÉES TEMPORAIRES FRONTEND
@@ -29,6 +29,7 @@ function Dashboard() {
     {
       icon: "📘",
       title: "Cours",
+      type: "course",
       description:
         "Créer un cours ou un résumé à partir d'un thème ou d'un plan.",
       path: "/generator",
@@ -36,6 +37,7 @@ function Dashboard() {
     {
       icon: "✎",
       title: "Série d'exercices",
+      type: "exercises",
       description:
         "Générer une série d'exercices à partir d'un thème.",
       path: "/generator",
@@ -43,6 +45,7 @@ function Dashboard() {
     {
       icon: "☑",
       title: "Quiz",
+      type: "quiz",
       description:
         "Créer un quiz à choix multiples avec difficulté et nombre de questions configurables.",
       path: "/generator",
@@ -50,14 +53,15 @@ function Dashboard() {
     {
       icon: "📋",
       title: "Examen",
+      type: "exam",
       description:
         "Préparer un examen avec durée, barème et consignes.",
       path: "/generator",
     },
   ];
 
-  const handleCreateContent = (path) => {
-    navigate(path);
+  const handleCreateContent = (path, contentType) => {
+    navigate(path, { state: { contentType } });
   };
 
   return (
@@ -236,7 +240,7 @@ function Dashboard() {
               className="dashboard-content-card"
               key={content.title}
               onClick={() =>
-                handleCreateContent(content.path)
+                handleCreateContent(content.path, content.type)
               }
             >
 
@@ -298,7 +302,7 @@ function Dashboard() {
         <button
           type="button"
           className="dashboard-outline-button"
-          onClick={() => navigate("/documents")}
+          onClick={() => navigate("/archives")}
         >
           Consulter les archives
           <span>→</span>

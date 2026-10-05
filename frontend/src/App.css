@@ -36,7 +36,7 @@ button {
    NAVBAR
 ========================================================= */
 
-nav {
+.legacy-navbar {
   width: 100%;
   height: 70px;
 
@@ -53,30 +53,30 @@ nav {
   z-index: 10;
 }
 
-nav > div:first-child a {
+.legacy-navbar > div:first-child a {
   color: #24205d;
   text-decoration: none;
   font-size: 26px;
   font-weight: 800;
 }
 
-nav > div:last-child {
+.legacy-navbar > div:last-child {
   display: flex;
   align-items: center;
   gap: 30px;
 }
 
-nav > div:last-child a:first-child {
+.legacy-navbar > div:last-child a:first-child {
   color: #77758b;
   text-decoration: none;
   font-size: 16px;
 }
 
-nav > div:last-child a:first-child:hover {
+.legacy-navbar > div:last-child a:first-child:hover {
   color: #5145dc;
 }
 
-nav > div:last-child a:last-child {
+.legacy-navbar > div:last-child a:last-child {
   color: #ffffff;
   background: #6252ed;
   text-decoration: none;
@@ -87,7 +87,7 @@ nav > div:last-child a:last-child {
   transition: 0.2s ease;
 }
 
-nav > div:last-child a:last-child:hover {
+.legacy-navbar > div:last-child a:last-child:hover {
   background: #5342db;
 }
 
@@ -158,37 +158,6 @@ nav > div:last-child a:last-child:hover {
 /* =========================================================
    AUTHENTIFICATION
 ========================================================= */
-
-.auth-page {
-  min-height: 100vh;
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: #f6f7fb;
-
-  padding: 40px 20px;
-}
-
-.auth-container {
-  width: 100%;
-  max-width: 520px;
-
-  padding: 40px;
-
-  text-align: center;
-
-  background: #ffffff;
-
-  border: 1px solid #e9e9f2;
-  border-radius: 18px;
-
-  box-shadow: 0 10px 35px rgba(35, 32, 83, 0.06);
-
-  margin: 0 auto;
-}
 
 .auth-container h1 {
   margin: 0 0 10px;
@@ -285,134 +254,15 @@ nav > div:last-child a:last-child:hover {
    DASHBOARD
 ========================================================= */
 
-.dashboard-page {
-  min-height: 100vh;
-  display: flex;
-  background: #f6f7fb;
-  color: #171735;
-}
-
 
 /* =========================================================
    SIDEBAR
 ========================================================= */
 
-.sidebar {
-  width: 230px;
-  min-height: 100vh;
-
-  background: #ffffff;
-  border-right: 1px solid #e9e9f2;
-
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  z-index: 20;
-}
-
-.sidebar-logo {
-  height: 82px;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  padding: 0 20px;
-
-  border-bottom: 1px solid #f0f0f5;
-}
-
-.exocraft-logo {
-  width: 175px;
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
-
-.sidebar-section {
-  padding: 25px 14px;
-}
-
-.sidebar-title {
-  margin: 0 8px 13px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  color: #858397;
-  letter-spacing: 0.7px;
-}
-
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.sidebar-item {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-
-  padding: 12px 13px;
-
-  border: none;
-  border-radius: 11px;
-
-  background: transparent;
-
-  color: #4e4c60;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  text-align: left;
-
-  transition: 0.2s ease;
-}
-
-.sidebar-item span {
-  width: 20px;
-  text-align: center;
-  font-size: 16px;
-}
-
-.sidebar-item:hover {
-  background: #f2f0ff;
-  color: #4f46d8;
-}
-
-.sidebar-item.active {
-  background: #27206c;
-  color: #ffffff;
-  box-shadow: 0 6px 15px rgba(39, 32, 108, 0.18);
-}
-
 
 /* =========================================================
    MAIN + TOPBAR
 ========================================================= */
-
-.dashboard-main {
-  width: calc(100% - 230px);
-
-  margin-left: 230px;
-
-  min-height: 100vh;
-
-  position: relative;
-}
-
-.dashboard-topbar {
-  position: relative;
-
-  width: 100%;
-  height: 70px;
-}
 
 .back-home-button {
   position: absolute;
@@ -449,12 +299,6 @@ nav > div:last-child a:last-child:hover {
 .back-home-button:hover {
   background: #eeeeee;
   color: #27206f;
-}
-
-.dashboard-content {
-  padding: 28px 35px 50px;
-  max-width: 1500px;
-  margin: auto;
 }
 
 
@@ -2275,51 +2119,6 @@ nav > div:last-child a:last-child:hover {
 
 @media (max-width: 900px) {
 
-  .sidebar {
-    width: 75px;
-  }
-
-  .sidebar-logo {
-    justify-content: center;
-    padding: 0 10px;
-  }
-
-  .exocraft-logo {
-    width: 48px;
-
-    object-fit: cover;
-
-    object-position: left;
-  }
-
-  .sidebar-title {
-    display: none;
-  }
-
-  .sidebar-item {
-    justify-content: center;
-
-    padding: 13px 8px;
-
-    font-size: 0;
-  }
-
-  .sidebar-item span {
-    width: auto;
-
-    font-size: 17px;
-  }
-
-  .dashboard-main {
-    width: calc(100% - 75px);
-
-    margin-left: 75px;
-  }
-
-  .dashboard-content {
-    padding: 20px;
-  }
-
   .documents-header {
     align-items: flex-start;
 
@@ -2344,23 +2143,23 @@ nav > div:last-child a:last-child:hover {
 
 @media (max-width: 700px) {
 
-  nav {
+  .legacy-navbar {
     padding: 0 20px;
   }
 
-  nav > div:first-child a {
+  .legacy-navbar > div:first-child a {
     font-size: 21px;
   }
 
-  nav > div:last-child {
+  .legacy-navbar > div:last-child {
     gap: 10px;
   }
 
-  nav > div:last-child a:first-child {
+  .legacy-navbar > div:last-child a:first-child {
     font-size: 13px;
   }
 
-  nav > div:last-child a:last-child {
+  .legacy-navbar > div:last-child a:last-child {
     padding: 9px 13px;
 
     font-size: 13px;
@@ -2438,10 +2237,6 @@ nav > div:last-child a:last-child:hover {
     flex: 1;
   }
 
-  .auth-container {
-    padding: 30px 22px;
-  }
-
   .auth-container h1 {
     font-size: 32px;
   }
@@ -2453,24 +2248,6 @@ nav > div:last-child a:last-child:hover {
 ========================================================= */
 
 @media (max-width: 500px) {
-
-  .sidebar {
-    width: 60px;
-  }
-
-  .dashboard-main {
-    width: calc(100% - 60px);
-
-    margin-left: 60px;
-  }
-
-  .exocraft-logo {
-    width: 42px;
-  }
-
-  .dashboard-content {
-    padding: 15px;
-  }
 
   .dashboard-hero {
     padding: 22px;
@@ -2503,14 +2280,6 @@ nav > div:last-child a:last-child:hover {
 
   .generated-question-top {
     align-items: flex-start;
-  }
-
-  .auth-page {
-    padding: 25px 15px;
-  }
-
-  .auth-container {
-    padding: 25px 18px;
   }
 }
 /* =========================================================
@@ -2873,142 +2642,9 @@ nav > div:last-child a:last-child:hover {
 /* =========================================================
    DASHBOARD SIDEBAR LINKS
 ========================================================= */
-
-.sidebar-item {
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-
-  padding: 12px 13px;
-
-  border: none;
-  border-radius: 11px;
-
-  background: transparent;
-
-  color: #4e4c60;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  text-align: left;
-
-  text-decoration: none;
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
-
-  box-sizing: border-box;
-}
-
-.sidebar-item:visited {
-  color: #4e4c60;
-  text-decoration: none;
-}
-
-.sidebar-item:hover {
-  background: #f2f0ff;
-  color: #4f46d8;
-
-  text-decoration: none;
-}
-
-.sidebar-item.active {
-  background: #27206c;
-  color: #ffffff;
-
-  box-shadow: 0 6px 15px rgba(39, 32, 108, 0.18);
-}
-
-.sidebar-item.active:visited {
-  color: #ffffff;
-}
-
-.sidebar-item span {
-  width: 20px;
-
-  text-align: center;
-
-  font-size: 16px;
-}
 /* =========================================================
    FIX SIDEBAR NAVIGATION
 ========================================================= */
-
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-
-  width: 230px;
-  min-height: 100vh;
-
-  z-index: 99999;
-
-  pointer-events: auto;
-}
-
-.sidebar-menu {
-  width: 100% !important;
-
-  height: auto !important;
-
-  display: flex !important;
-  flex-direction: column !important;
-
-  gap: 5px !important;
-
-  padding: 0 !important;
-
-  margin: 0 !important;
-
-  background: transparent !important;
-
-  border: none !important;
-
-  position: static !important;
-
-  z-index: auto !important;
-}
-
-.sidebar-item {
-  width: 100% !important;
-
-  display: flex !important;
-  align-items: center !important;
-
-  position: relative;
-
-  z-index: 100000;
-
-  cursor: pointer !important;
-
-  pointer-events: auto !important;
-
-  box-sizing: border-box;
-
-  text-decoration: none !important;
-}
-
-.sidebar-item span {
-  pointer-events: none;
-}
-
-.sidebar-item:hover {
-  text-decoration: none !important;
-}
-
-.sidebar-item:visited {
-  text-decoration: none !important;
-}
-
-.sidebar-item.active {
-  text-decoration: none !important;
-}
 /* =========================================================
    EXOCRAFT - HOME PAGE
 ========================================================= */
@@ -9519,29 +9155,9 @@ nav > div:last-child a:last-child:hover {
    EXOCRAFT - LOGIN PAGE
 ========================================================= */
 
-.auth-page {
-  min-height: 100vh;
-  background: #f8f9fd;
-  color: #171735;
-}
-
 /* =========================================================
    HEADER
 ========================================================= */
-
-.auth-header {
-  width: 100%;
-  height: 78px;
-  padding: 0 7%;
-  box-sizing: border-box;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  background: #ffffff;
-  border-bottom: 1px solid #e8e7ef;
-}
 
 .auth-logo-link {
   display: flex;
@@ -9582,37 +9198,9 @@ nav > div:last-child a:last-child:hover {
    MAIN
 ========================================================= */
 
-.auth-main {
-  min-height: calc(100vh - 78px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 55px 20px;
-  box-sizing: border-box;
-}
-
 /* =========================================================
    CONTAINER
 ========================================================= */
-
-.auth-container {
-  width: 100%;
-  max-width: 460px;
-
-  padding: 42px;
-
-  box-sizing: border-box;
-
-  background: #ffffff;
-
-  border: 1px solid #e5e3ed;
-  border-radius: 20px;
-
-  box-shadow:
-    0 20px 55px rgba(45, 39, 100, 0.08);
-}
 
 /* =========================================================
    HEADING
@@ -9886,10 +9474,6 @@ nav > div:last-child a:last-child:hover {
 ========================================================= */
 
 @media (max-width: 700px) {
-  .auth-header {
-    height: 70px;
-    padding: 0 22px;
-  }
 
   .auth-logo {
     width: 112px;
@@ -9903,27 +9487,12 @@ nav > div:last-child a:last-child:hover {
     font-size: 12px;
   }
 
-  .auth-main {
-    min-height: calc(100vh - 70px);
-
-    padding: 30px 18px;
-  }
-
-  .auth-container {
-    padding: 30px 24px;
-
-    border-radius: 16px;
-  }
-
   .auth-heading h1 {
     font-size: 27px;
   }
 }
 
 @media (max-width: 450px) {
-  .auth-container {
-    padding: 26px 20px;
-  }
 
   .auth-heading h1 {
     font-size: 24px;
@@ -9943,85 +9512,11 @@ nav > div:last-child a:last-child:hover {
    LOGIN - FINAL POSITION FIX
 ========================================================= */
 
-.auth-page {
-  position: relative !important;
-
-  width: 100% !important;
-  min-height: 100vh !important;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  display: block !important;
-}
-
 /* HEADER */
-
-.auth-page .auth-header {
-  position: relative !important;
-
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-
-  width: 100% !important;
-  height: 78px !important;
-
-  margin: 0 !important;
-  padding: 0 7% !important;
-
-  box-sizing: border-box !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-
-  background: #ffffff !important;
-
-  border-bottom: 1px solid #e8e7ef !important;
-}
 
 /* MAIN */
 
-.auth-page .auth-main {
-  position: relative !important;
-
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-
-  width: 100% !important;
-  min-height: calc(100vh - 78px) !important;
-
-  margin: 0 !important;
-  padding: 55px 20px !important;
-
-  box-sizing: border-box !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
 /* LOGIN CARD */
-
-.auth-page .auth-container {
-  position: relative !important;
-
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: auto !important;
-
-  width: 100% !important;
-  max-width: 460px !important;
-
-  margin: 0 auto !important;
-
-  box-sizing: border-box !important;
-}
 .auth-page .form-group .forgot-password {
   align-self: flex-start;
 
@@ -10059,28 +9554,9 @@ nav > div:last-child a:last-child:hover {
    EXOCRAFT - TEACHER DASHBOARD
 ========================================================= */
 
-.dashboard-page {
-  min-height: 100vh;
-  background: #f7f8fc;
-  color: #171735;
-}
-
 /* =========================================================
    MAIN AREA
 ========================================================= */
-
-.dashboard-main {
-  min-height: 100vh;
-}
-
-.dashboard-content {
-  width: 100%;
-  max-width: 1380px;
-  margin: 0 auto;
-
-  padding: 42px 48px 60px;
-  box-sizing: border-box;
-}
 
 /* =========================================================
    WELCOME
@@ -10568,10 +10044,6 @@ nav > div:last-child a:last-child:hover {
 
 @media (max-width: 1100px) {
 
-  .dashboard-content {
-    padding: 35px 30px 50px;
-  }
-
   .dashboard-content-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -10605,10 +10077,6 @@ nav > div:last-child a:last-child:hover {
 }
 
 @media (max-width: 600px) {
-
-  .dashboard-content {
-    padding: 28px 18px 40px;
-  }
 
   .dashboard-welcome {
     margin-bottom: 35px;
@@ -11142,387 +10610,37 @@ nav > div:last-child a:last-child:hover {
    DASHBOARD LAYOUT - NEW HEADER
 ========================================================= */
 
-.dashboard-topbar {
-  width: 100%;
-  height: 84px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 38px;
-
-  box-sizing: border-box;
-
-  background: #ffffff;
-
-  border-bottom: 1px solid #e8e7ef;
-}
-
 /* =========================================================
    TOPBAR BRAND
 ========================================================= */
-
-.dashboard-topbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dashboard-back-button {
-  width: 30px;
-  height: 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0;
-
-  border: none;
-  border-radius: 7px;
-
-  background: transparent;
-
-  color: #514b68;
-
-  font-family: inherit;
-  font-size: 20px;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-.dashboard-back-button:hover {
-  background: #f0edff;
-  color: #6652e8;
-}
-
-.dashboard-topbar-brand > span {
-  color: #171735;
-
-  font-size: 24px;
-  font-weight: 800;
-
-  letter-spacing: -0.5px;
-}
 
 /* =========================================================
    USER
 ========================================================= */
 
-.dashboard-user {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.dashboard-user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  gap: 3px;
-}
-
-.dashboard-user-label {
-  color: #9a97a9;
-
-  font-size: 8px;
-  font-weight: 800;
-
-  letter-spacing: 1px;
-}
-
-.dashboard-user-email {
-  color: #292642;
-
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.dashboard-user-avatar {
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #6652e8;
-  color: #ffffff;
-
-  font-size: 13px;
-  font-weight: 800;
-
-  box-shadow:
-    0 5px 14px rgba(102, 82, 232, 0.18);
-}
-
 /* =========================================================
    SIDEBAR - ICONS
 ========================================================= */
-
-.sidebar-icon {
-  width: 22px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: inherit;
-
-  font-size: 15px;
-}
-
-.sidebar-text {
-  line-height: 1.2;
-}
 
 /* =========================================================
    SIDEBAR ITEM
 ========================================================= */
 
-.sidebar-item {
-  width: 100%;
-
-  min-height: 50px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-
-  padding: 10px 17px;
-
-  box-sizing: border-box;
-
-  border: none;
-  border-radius: 11px;
-
-  background: transparent;
-
-  color: #45405f;
-
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 700;
-
-  text-align: left;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.sidebar-item:hover {
-  background: #f3f1fc;
-  color: #6652e8;
-}
-
-.sidebar-item.active {
-  background: #30247d;
-  color: #ffffff;
-
-  box-shadow:
-    0 8px 18px rgba(48, 36, 125, 0.18);
-}
-
-.sidebar-item.active:hover {
-  background: #30247d;
-  color: #ffffff;
-}
-
 /* =========================================================
    SIDEBAR MENU
 ========================================================= */
-
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-
-  gap: 5px;
-}
 
 /* =========================================================
    SIDEBAR
 ========================================================= */
 
-.sidebar {
-  width: 276px;
-
-  position: fixed;
-
-  top: 0;
-  left: 0;
-  bottom: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  background: #ffffff;
-
-  border-right: 1px solid #e5e3ed;
-
-  box-sizing: border-box;
-
-  z-index: 20;
-}
-
-.sidebar-logo {
-  height: 98px;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 29px;
-
-  box-sizing: border-box;
-
-  border-bottom: 1px solid #e8e7ef;
-}
-
-.exocraft-logo {
-  width: 145px;
-  height: auto;
-
-  object-fit: contain;
-}
-
-.sidebar-section {
-  padding: 31px 13px;
-}
-
-.sidebar-title {
-  margin: 0 9px 20px;
-
-  color: #858298;
-
-  font-size: 9px;
-  font-weight: 800;
-
-  letter-spacing: 0.9px;
-}
-
 /* =========================================================
    MAIN
 ========================================================= */
 
-.dashboard-main {
-  min-height: 100vh;
-
-  margin-left: 276px;
-
-  background: #f7f8fc;
-}
-
-.dashboard-content {
-  width: 100%;
-  max-width: 1380px;
-
-  margin: 0 auto;
-
-  padding: 42px 48px 60px;
-
-  box-sizing: border-box;
-}
-
 /* =========================================================
    RESPONSIVE
 ========================================================= */
-
-@media (max-width: 900px) {
-
-  .sidebar {
-    width: 220px;
-  }
-
-  .dashboard-main {
-    margin-left: 220px;
-  }
-
-  .dashboard-topbar {
-    padding: 0 22px;
-  }
-
-  .dashboard-content {
-    padding: 32px 25px 50px;
-  }
-
-  .dashboard-user-info {
-    display: none;
-  }
-
-}
-
-@media (max-width: 650px) {
-
-  .sidebar {
-    width: 75px;
-  }
-
-  .sidebar-logo {
-    justify-content: center;
-
-    padding: 0;
-  }
-
-  .exocraft-logo {
-    width: 42px;
-  }
-
-  .sidebar-title {
-    display: none;
-  }
-
-  .sidebar-section {
-    padding: 20px 10px;
-  }
-
-  .sidebar-item {
-    justify-content: center;
-
-    padding: 12px 8px;
-  }
-
-  .sidebar-text {
-    display: none;
-  }
-
-  .dashboard-main {
-    margin-left: 75px;
-  }
-
-  .dashboard-topbar {
-    height: 70px;
-
-    padding: 0 15px;
-  }
-
-  .dashboard-topbar-brand > span {
-    font-size: 19px;
-  }
-
-  .dashboard-user-avatar {
-    width: 34px;
-    height: 34px;
-  }
-
-  .dashboard-content {
-    padding: 25px 16px 40px;
-  }
-
-}
 /* =========================================================
    MES CONTENUS
 ========================================================= */

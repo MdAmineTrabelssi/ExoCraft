@@ -1,235 +1,111 @@
-import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/exocraft-logo.png";
 
+const menuItems = [
+  { path: "/dashboard", page: "dashboard", icon: "▣", label: "Tableau de bord" },
+  { path: "/generator", page: "generator", icon: "✦", label: "Générateur IA" },
+  { path: "/my-content", page: "contents", icon: "▤", label: "Mes contenus" },
+  { path: "/archives", page: "archives", icon: "▧", label: "Archives" },
+  { path: "/history", page: "history", icon: "◷", label: "Historique" },
+  { path: "/settings", page: "settings", icon: "⚙", label: "Paramètres" },
+];
+
 function DashboardLayout({ children, activePage }) {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef(null);
 
-  const goTo = (path) => {
-    navigate(path);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    menuButton.current?.focus();
   };
 
+  const signOut = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
+
+  const navigation = (mobile = false) => (
+    <>
+      <p className="sidebar-title">MENU PRINCIPAL</p>
+      <nav className="sidebar-menu" aria-label="Navigation principale">
+        {menuItems.map(({ path, page, icon, label }) => (
+          <NavLink
+            key={path}
+            to={path}
+            className={({ isActive }) =>
+              `sidebar-item${isActive || activePage === page ? " active" : ""}`
+            }
+            onClick={mobile ? closeMenu : undefined}
+          >
+            <span className="sidebar-icon" aria-hidden="true">{icon}</span>
+            <span className="sidebar-text">{label}</span>
+          </NavLink>
+        ))}
+      </nav>
+      <button type="button" className="sidebar-item sidebar-logout" onClick={signOut}>
+        <span className="sidebar-icon" aria-hidden="true">↪</span>
+        <span className="sidebar-text">Se déconnecter</span>
+      </button>
+    </>
+  );
+
   return (
-    <div className="dashboard-page">
-
-      {/* =====================================================
-          SIDEBAR
-      ===================================================== */}
-
-      <aside className="sidebar">
-
-        {/* LOGO */}
-
-        <div className="sidebar-logo">
-
-          <img
-            src={logo}
-            alt="ExoCraft"
-            className="exocraft-logo"
-          />
-
-        </div>
-
-        {/* MENU */}
-
-        <div className="sidebar-section">
-
-          <p className="sidebar-title">
-            MENU PRINCIPAL
-          </p>
-
-          <div className="sidebar-menu">
-
-            {/* TABLEAU DE BORD */}
-
-            <button
-              type="button"
-              className={
-                activePage === "dashboard"
-                  ? "sidebar-item active"
-                  : "sidebar-item"
-              }
-              onClick={() => goTo("/dashboard")}
-            >
-              <span className="sidebar-icon">
-                ▣
-              </span>
-
-              <span className="sidebar-text">
-                Tableau de bord
-              </span>
-            </button>
-
-            {/* GÉNÉRATEUR */}
-
-            <button
-              type="button"
-              className={
-                activePage === "generator"
-                  ? "sidebar-item active"
-                  : "sidebar-item"
-              }
-              onClick={() => goTo("/generator")}
-            >
-              <span className="sidebar-icon">
-                ✦
-              </span>
-
-              <span className="sidebar-text">
-                Générateur IA
-              </span>
-            </button>
-
-            {/* MES CONTENUS */}
-
-            <button
-              type="button"
-              className={
-                activePage === "contents"
-                  ? "sidebar-item active"
-                  : "sidebar-item"
-              }
-              onClick={() => goTo("/my-content")}
-            >
-              <span className="sidebar-icon">
-                ▤
-              </span>
-
-              <span className="sidebar-text">
-                Mes contenus
-              </span>
-            </button>
-
-            {/* ARCHIVES */}
-
-            <button
-              type="button"
-              className={
-                activePage === "archives"
-                  ? "sidebar-item active"
-                  : "sidebar-item"
-              }
-              onClick={() => goTo("/archives")}
-            >
-              <span className="sidebar-icon">
-                ▧
-              </span>
-
-              <span className="sidebar-text">
-                Archives
-              </span>
-            </button>
-
-            {/* HISTORIQUE */}
-
-            <button
-              type="button"
-              className={
-                activePage === "history"
-                  ? "sidebar-item active"
-                  : "sidebar-item"
-              }
-              onClick={() => goTo("/history")}
-            >
-              <span className="sidebar-icon">
-                ◷
-              </span>
-
-              <span className="sidebar-text">
-                Historique
-              </span>
-            </button>
-
-            {/* PARAMÈTRES */}
-
-            <button
-              type="button"
-              className={
-                activePage === "settings"
-                  ? "sidebar-item active"
-                  : "sidebar-item"
-              }
-              onClick={() => goTo("/settings")}
-            >
-              <span className="sidebar-icon">
-                ⚙
-              </span>
-
-              <span className="sidebar-text">
-                Paramètres
-              </span>
-            </button>
-
-          </div>
-
-        </div>
-
+    <div
+      className="dashboard-page"
+      onKeyDown={(event) => {
+        if (menuOpen && event.key === "Escape") closeMenu();
+      }}
+    >
+      <a className="skip-link" href="#main-content">Aller au contenu</a>
+      <aside className="sidebar" aria-label="Menu latéral">
+        <Link to="/dashboard" className="sidebar-logo" aria-label="ExoCraft — Tableau de bord">
+          <img src={logo} alt="ExoCraft" className="exocraft-logo" />
+        </Link>
+        <div className="sidebar-section">{navigation()}</div>
       </aside>
-
-      {/* =====================================================
-          MAIN
-      ===================================================== */}
-
       <div className="dashboard-main">
-
-        {/* ===================================================
-            TOPBAR
-        =================================================== */}
-
         <header className="dashboard-topbar">
-
           <div className="dashboard-topbar-brand">
-
             <button
+              ref={menuButton}
               type="button"
-              className="dashboard-back-button"
-              onClick={() => goTo("/dashboard")}
-              title="Retour au tableau de bord"
+              className="dashboard-menu-toggle"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+              aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              onClick={() => setMenuOpen(!menuOpen)}
             >
-              ←
+              <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
             </button>
-
-            <span>
-              ExoCraft
-            </span>
-
+            <Link to="/dashboard" className="dashboard-brand-link">ExoCraft</Link>
           </div>
-
           <div className="dashboard-user">
-
             <div className="dashboard-user-info">
-
-              <span className="dashboard-user-label">
-                ESPACE ENSEIGNANT
-              </span>
-
-              <span className="dashboard-user-email">
+              <span className="dashboard-user-label">ESPACE ENSEIGNANT</span>
+              <span className="dashboard-user-email" title={user?.email}>
                 {user?.email || "Utilisateur"}
               </span>
-
             </div>
-
-            <div className="dashboard-user-avatar">
-              {user?.email
-                ? user.email.charAt(0).toUpperCase()
-                : "U"}
-            </div>
-
+            <Link to="/settings" className="dashboard-user-avatar" aria-label="Mon profil et mes paramètres">
+              {user?.email ? user.email.charAt(0).toUpperCase() : "U"}
+            </Link>
           </div>
-
         </header>
-
-        {/* ===================================================
-            CONTENT
-        =================================================== */}
-
-        <main className="dashboard-content">
+        <div
+          id="mobile-navigation"
+          className="dashboard-mobile-menu"
+          hidden={!menuOpen}
+        >
+          {navigation(true)}
+        </div>
+        <main id="main-content" className="dashboard-content" tabIndex={-1}>
           {children}
         </main>
-
       </div>
-
     </div>
   );
 }
