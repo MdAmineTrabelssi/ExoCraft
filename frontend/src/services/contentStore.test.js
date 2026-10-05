@@ -9,7 +9,7 @@ function memoryStorage(initial = null) {
 
 test("create, edit, archive and restore preserve a single record and its content", () => {
   const storage = memoryStorage();
-  saveContent({ title: " Cours de test ", type: "course", body: "Texte conservé", subject: "Réseaux" }, storage);
+  saveContent({ title: " Cours de test ", type: "course", body: "Texte conservé", subject: "Réseaux", className: "4ème ingénieur", section: "Cloud" }, storage);
   const original = readContents(storage)[0];
   assert.equal(original.title, "Cours de test");
   assert.equal(original.archivedAt, undefined);

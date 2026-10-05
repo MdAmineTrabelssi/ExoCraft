@@ -34,9 +34,14 @@ function Login() {
       - le rôle de l'utilisateur
     */
 
-    const userData = {
-      email: email.trim(),
-    };
+    let savedProfile = null;
+    try {
+      const profile = JSON.parse(localStorage.getItem("exocraft_profile") || "null");
+      if (profile?.email?.toLowerCase() === email.trim().toLowerCase()) savedProfile = profile;
+    } catch {
+      savedProfile = null;
+    }
+    const userData = savedProfile || { email: email.trim() };
 
     login(userData);
 

@@ -31,14 +31,15 @@ function commit(change, storage) {
 }
 
 export function saveContent(draft, storage = localStorage) {
-  if (!draft.title?.trim() || !draft.body?.trim() || !contentTypes[draft.type]) {
-    throw new Error("Renseignez le titre, le type et le contenu.");
+  if (!draft.title?.trim() || !draft.body?.trim() || !contentTypes[draft.type] || !draft.className?.trim() || !draft.section?.trim()) {
+    throw new Error("Renseignez le titre, le type, la classe et la section du contenu.");
   }
   return commit(contents => {
     const now = new Date().toISOString();
     const fields = {
       title: draft.title.trim(), type: draft.type, body: draft.body.trim(),
       subject: draft.subject?.trim() || "", promotion: draft.promotion?.trim() || "",
+      className: draft.className.trim(), section: draft.section.trim(),
       status: draft.status === "valid" ? "valid" : "draft", updatedAt: now,
     };
     if (draft.id != null) {

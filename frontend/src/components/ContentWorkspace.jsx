@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { CLASS_OPTIONS, SECTION_OPTIONS } from "../context/AuthContext";
 import useContents from "../hooks/useContents";
 import { archiveContent, contentText, contentTypes, restoreContent, saveContent } from "../services/contentStore";
 
@@ -10,10 +11,13 @@ function displayDate(value) {
   return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString("fr-FR");
 }
 
-function ContentEditor({ content, onSave, onCancel }) {
+function ContentEditor({ content, onSave, onCancel, groups, selectedGroup }) {
+  const groupDefaults = groups.length ? groups : CLASS_OPTIONS.flatMap((className) => SECTION_OPTIONS.map((section) => ({ className, section })));
+  const initialGroup = groupDefaults.find((item) => item.className === content?.className && item.section === content?.section) || selectedGroup || groupDefaults[0];
   const [draft, setDraft] = useState(() => ({
     id: content?.id, title: content?.title || "", type: content?.type || "course",
     subject: content?.subject || "", promotion: content?.promotion || "",
+    className: initialGroup?.className || "", section: initialGroup?.section || "",
     status: content?.status || "draft", body: content ? contentText(content) : "",
   }));
   const [error, setError] = useState("");
@@ -40,6 +44,8 @@ function ContentEditor({ content, onSave, onCancel }) {
           <label>Type de contenu<select name="type" value={draft.type} onChange={update}>
             {Object.entries(contentTypes).map(([key, type]) => <option key={key} value={key}>{type.label}</option>)}
           </select></label>
+          <label>Classe<select name="className" value={draft.className} onChange={update} required>{[...new Set(groupDefaults.map((item) => item.className))].map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
+          <label>Section<select name="section" value={draft.section} onChange={update} required>{[...new Set(groupDefaults.filter((item) => item.className === draft.className).map((item) => item.section))].map((item) => <option key={item} value={item}>{item}</option>)}</select></label>
           <label>Matière (facultatif)<input name="subject" value={draft.subject} onChange={update} maxLength={120} /></label>
           <label>Promotion (facultatif)<input name="promotion" value={draft.promotion} onChange={update} maxLength={120} /></label>
         </div>
@@ -56,7 +62,7 @@ function ContentEditor({ content, onSave, onCancel }) {
   );
 }
 
-export default function ContentWorkspace({ archived = false }) {
+export default function ContentWorkspace({ archived = false, groups = [], selectedGroup = null }) {
   const { contents, error: storageError } = useContents();
   const [search, setSearch] = useState("");
   const [type, setType] = useState("all");
@@ -69,7 +75,7 @@ export default function ContentWorkspace({ archived = false }) {
   useEffect(() => {
     if (panel?.mode === "view") previewHeading.current?.focus();
   }, [panel]);
-  const visible = contents.filter(content => Boolean(content.archivedAt) === archived);
+  const visible = contents.filter(content => Boolean(content.archivedAt) === archived && (!selectedGroup || selectedGroup === "all" || (content.className === selectedGroup.className && content.section === selectedGroup.section)));
   const filtered = visible.filter(content =>
     (type === "all" || content.type === type) &&
     (status === "all" || content.status === status) &&
@@ -89,7 +95,7 @@ export default function ContentWorkspace({ archived = false }) {
           <h1 ref={heading} tabIndex={-1}>{archived ? "Archives" : "Tableau de bord"}</h1>
           <p>{archived ? "Retrouvez les contenus supprimés. Restaurez-les pour les remettre dans votre tableau de bord." : "Créez, consultez et gérez tous vos contenus pédagogiques au même endroit."}</p>
         </div>
-        {!archived && <button className="workspace-button" disabled={Boolean(storageError)} onClick={() => { setPanel({ mode: "edit", content: null }); setNotice(""); }}>+ Créer un contenu</button>}
+      {!archived && <button className="workspace-button" disabled={Boolean(storageError)} onClick={() => { setPanel({ mode: "edit", content: null }); setNotice(""); }}>+ Créer un contenu</button>}
       </section>
 
       <div className="workspace-stats" aria-label="Résumé des contenus">
@@ -103,7 +109,7 @@ export default function ContentWorkspace({ archived = false }) {
       {notice && <div className="workspace-notice" role="status">{notice}{!archived && notice.includes("archives") && <Link to="/archives">Voir les archives →</Link>}</div>}
       {(storageError || error) && <p className="workspace-error" role="alert">{storageError || error}</p>}
 
-      {panel?.mode === "edit" && !archived && <ContentEditor key={panel.content?.id || "new"} content={panel.content} onCancel={closePanel} onSave={() => {
+      {panel?.mode === "edit" && !archived && <ContentEditor key={panel.content?.id || "new"} content={panel.content} groups={groups} selectedGroup={selectedGroup === "all" ? null : selectedGroup} onCancel={closePanel} onSave={() => {
         setSearch(""); setType("all"); setStatus("all"); setNotice("Contenu enregistré dans votre tableau de bord."); setError(""); closePanel();
       }} />}
 
@@ -128,6 +134,7 @@ export default function ContentWorkspace({ archived = false }) {
           {filtered.map(content => <article className="workspace-card" key={content.id}>
             <div className="workspace-card-top"><span>{contentTypes[content.type]?.icon || "📄"} {contentTypes[content.type]?.label || "Contenu"}</span><span className={`workspace-badge ${content.status === "valid" ? "valid" : ""}`}>{content.status === "valid" ? "Validé" : "Brouillon"}</span></div>
             <h3>{content.title}</h3>
+            <p>{content.className || "Classe non renseignée"} · {content.section || "Section non renseignée"}</p>
             <p>{content.subject || content.theme || "Sans matière"}</p>
             {content.promotion && <p>{content.promotion}</p>}
             <small>{archived ? "Archivé le " : "Créé le "}{displayDate(archived ? content.archivedAt : content.createdAt)}</small>

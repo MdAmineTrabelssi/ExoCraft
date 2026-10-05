@@ -3,9 +3,9 @@ import DashboardLayout from "../components/DashboardLayout";
 import { useAuth } from "../context/AuthContext";
 
 function Settings() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
 
-  const [name, setName] = useState("Utilisateur ExoCraft");
+  const [name, setName] = useState(user?.lastName || "Utilisateur ExoCraft");
 
   const [email, setEmail] = useState(
     user?.email || "utilisateur@exocraft.com"
@@ -20,6 +20,8 @@ function Settings() {
 
   const handleSave = (event) => {
     event.preventDefault();
+
+    updateUser({ lastName: name.trim(), email: email.trim() });
 
     setSaved(true);
 
@@ -249,7 +251,7 @@ function Settings() {
 
                 <span>
                   Recevoir les notifications concernant
-                  vos quiz et générations.
+                  vos contenus et votre espace.
                 </span>
 
               </div>
@@ -286,12 +288,11 @@ function Settings() {
               <div>
 
                 <strong>
-                  Génération intelligente
+                  Organisation des contenus
                 </strong>
 
                 <span>
-                  Utiliser les paramètres recommandés
-                  pour vos générations de quiz.
+                  Vos contenus restent classés par classe et par section.
                 </span>
 
               </div>
@@ -315,7 +316,7 @@ function Settings() {
 
                 <span>
                   Conserver automatiquement vos contenus
-                  générés.
+                  enregistrés.
                 </span>
 
               </div>

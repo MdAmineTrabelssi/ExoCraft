@@ -8,7 +8,7 @@ const menuItems = [
   { path: "/archives", page: "archives", icon: "▧", label: "Archives" },
 ];
 
-function DashboardLayout({ children, activePage }) {
+function DashboardLayout({ children, activePage, groups = [], selectedGroup = null, onSelectGroup }) {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,6 +42,15 @@ function DashboardLayout({ children, activePage }) {
           </NavLink>
         ))}
       </nav>
+      {groups.length > 0 && <div className="sidebar-groups" aria-label="Classes et sections">
+        <p className="sidebar-title">MES CLASSES</p>
+        <button type="button" className={`sidebar-group-button${selectedGroup === "all" ? " active" : ""}`} onClick={() => { onSelectGroup?.("all"); if (mobile) closeMenu(); }}>Toutes les classes</button>
+        {groups.map((group) => {
+          const key = `${group.className} / ${group.section}`;
+          const isActive = selectedGroup?.className === group.className && selectedGroup?.section === group.section;
+          return <button key={key} type="button" className={`sidebar-group-button${isActive ? " active" : ""}`} onClick={() => { onSelectGroup?.(group); if (mobile) closeMenu(); }}><span>{group.className}</span><small>{group.section}</small></button>;
+        })}
+      </div>}
       <button type="button" className="sidebar-item sidebar-logout" onClick={signOut}>
         <span className="sidebar-icon" aria-hidden="true">↪</span>
         <span className="sidebar-text">Se déconnecter</span>
@@ -78,6 +87,7 @@ function DashboardLayout({ children, activePage }) {
               <span aria-hidden="true">{menuOpen ? "×" : "☰"}</span>
             </button>
             <Link to="/dashboard" className="dashboard-brand-link">ExoCraft</Link>
+            {selectedGroup && selectedGroup !== "all" && <span className="dashboard-context-breadcrumb">{selectedGroup.className} / {selectedGroup.section}</span>}
           </div>
           <div className="dashboard-user">
             <div className="dashboard-user-info">
