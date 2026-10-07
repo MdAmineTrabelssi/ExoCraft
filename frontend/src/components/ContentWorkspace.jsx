@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { CLASS_OPTIONS, SECTION_OPTIONS } from "../context/AuthContext";
+import { defaultGroups } from "../context/AuthContext";
 import useContents from "../hooks/useContents";
 import { archiveContent, contentText, contentTypes, restoreContent, saveContent } from "../services/contentStore";
 
@@ -12,7 +12,7 @@ function displayDate(value) {
 }
 
 function ContentEditor({ content, onSave, onCancel, groups, selectedGroup }) {
-  const groupDefaults = groups.length ? groups : CLASS_OPTIONS.flatMap((className) => SECTION_OPTIONS.map((section) => ({ className, section })));
+  const groupDefaults = groups.length ? groups : defaultGroups();
   const initialGroup = groupDefaults.find((item) => item.className === content?.className && item.section === content?.section) || selectedGroup || groupDefaults[0];
   const [draft, setDraft] = useState(() => ({
     id: content?.id, title: content?.title || "", type: content?.type || "course",
@@ -23,7 +23,14 @@ function ContentEditor({ content, onSave, onCancel, groups, selectedGroup }) {
   const [error, setError] = useState("");
   const titleInput = useRef(null);
   useEffect(() => { titleInput.current?.focus(); }, []);
-  const update = event => setDraft(current => ({ ...current, [event.target.name]: event.target.value }));
+  const update = event => setDraft(current => {
+    const next = { ...current, [event.target.name]: event.target.value };
+    if (event.target.name === "className") {
+      const firstSection = groupDefaults.find((item) => item.className === event.target.value)?.section || "";
+      next.section = firstSection;
+    }
+    return next;
+  });
 
   return (
     <section className="workspace-editor" aria-labelledby="editor-heading">

@@ -10,6 +10,17 @@ export const CLASS_OPTIONS = [
   "5ème ingénieur",
 ];
 export const SECTION_OPTIONS = ["Cloud", "Data Science", "Cyber Security", "Génie logiciel"];
+export const COMMON_SECTION = "Tronc commun";
+
+export function buildAssociations(classes = CLASS_OPTIONS, sections = SECTION_OPTIONS) {
+  return classes.flatMap((className) => CLASS_OPTIONS.indexOf(className) < 3
+    ? [{ className, section: COMMON_SECTION }]
+    : sections.map((section) => ({ className, section })));
+}
+
+export function defaultGroups() {
+  return buildAssociations();
+}
 
 function normalizeAssociations(associations) {
   if (!Array.isArray(associations)) return [];
