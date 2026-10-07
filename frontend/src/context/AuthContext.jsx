@@ -2,8 +2,14 @@ import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext();
 
-export const CLASS_OPTIONS = ["4ème ingénieur", "5ème ingénieur"];
-export const SECTION_OPTIONS = ["Cloud", "Data Science", "Cyber Security"];
+export const CLASS_OPTIONS = [
+  "1ère ingénieur",
+  "2ème ingénieur",
+  "3ème ingénieur",
+  "4ème ingénieur",
+  "5ème ingénieur",
+];
+export const SECTION_OPTIONS = ["Cloud", "Data Science", "Cyber Security", "Génie logiciel"];
 
 function normalizeAssociations(associations) {
   if (!Array.isArray(associations)) return [];
